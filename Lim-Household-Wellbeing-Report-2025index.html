@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lim Household — 2025 Financial Wellbeing Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --crimson:#8B1E2D;
+  --crimson-deep:#5E1320;
+  --gold:#C29A3D;
+  --gold-soft:#E3C879;
+  --ivory:#FAF6EF;
+  --ivory-card:#FFFDF8;
+  --ink:#2A2420;
+  --ink-soft:#6B6259;
+  --line:#E7DECF;
+  --green:#3E6B4F;
+  --green-soft:#E4EDE6;
+  --amber:#B5702A;
+  --amber-soft:#F4E9DA;
+  --clay:#C98A4B;
+  --slate:#9C8B6E;
+  --plum:#5A4A78;
+  --plum-soft:#EAE3F0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ivory);color:var(--ink);font-family:'Inter',-apple-system,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+.hero{
+  background:radial-gradient(120% 140% at 85% -10%, rgba(194,154,61,.28), transparent 55%),
+    linear-gradient(155deg, var(--crimson) 0%, var(--crimson-deep) 100%);
+  color:var(--ivory);padding:60px 0 50px;position:relative;overflow:hidden;
+}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:340px;height:340px;
+  background:radial-gradient(circle, rgba(227,200,121,.35), transparent 70%);filter:blur(8px)}
+.eyebrow{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-soft);font-weight:600;margin-bottom:18px}
+.hero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(32px,5.5vw,52px);line-height:1.05;letter-spacing:-.5px;margin-bottom:14px}
+.hero h1 em{font-style:italic;color:var(--gold-soft);font-weight:500}
+.hero .sub{font-size:16px;max-width:600px;color:rgba(250,246,239,.82)}
+.hero .meta{display:flex;gap:28px;margin-top:28px;flex-wrap:wrap;font-size:13px;color:rgba(250,246,239,.72);position:relative;z-index:2}
+.hero .meta b{color:var(--ivory);font-weight:600;display:block;font-size:15px;margin-top:2px}
+
+section{padding:50px 0}
+.section-tag{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--crimson);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.section-tag::before{content:"";width:26px;height:2px;background:var(--gold)}
+h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(24px,3.6vw,32px);letter-spacing:-.4px;margin-bottom:8px}
+.lead{color:var(--ink-soft);max-width:700px;margin-bottom:28px;font-size:15.5px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.card{background:var(--ivory-card);border:1px solid var(--line);border-radius:16px;padding:22px 22px 20px}
+.card .label{font-size:12.5px;color:var(--ink-soft);font-weight:500}
+.card .big{font-family:'Fraunces',serif;font-size:30px;font-weight:600;margin:8px 0 2px;line-height:1}
+.card .note{font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.45}
+.card .pill{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:20px;margin-top:8px}
+.pill.good{background:var(--green-soft);color:var(--green)}
+.pill.watch{background:var(--amber-soft);color:var(--amber)}
+.pill.ok{background:var(--plum-soft);color:var(--plum)}
+
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.chart-card{background:var(--ivory-card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.chart-card h3{font-family:'Fraunces',serif;font-size:18px;font-weight:600;margin-bottom:4px}
+.chart-card .cap{font-size:12.5px;color:var(--ink-soft);margin-bottom:16px}
+.chart-holder{position:relative;height:240px}
+.chart-holder.tall{height:300px}
+.chart-holder.wide{height:280px}
+
+.tbl-wrap{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--ivory-card)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:12px 18px;text-align:left}
+thead th{background:var(--crimson);color:var(--ivory);font-weight:600;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+tbody tr{border-top:1px solid var(--line)}
+tbody tr:nth-child(even){background:#FBF8F2}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.metric-name{font-weight:600}
+.pill-sm{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+
+.steps{display:flex;flex-direction:column;gap:0;margin-top:8px}
+.step{display:grid;grid-template-columns:54px 1fr;gap:18px;padding:18px 0;border-top:1px solid var(--line);position:relative}
+.step:first-child{border-top:none}
+.step-num{font-family:'Fraunces',serif;font-size:22px;font-weight:600;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--line);color:var(--ink-soft);background:var(--ivory-card)}
+.step.done .step-num{background:var(--green);color:#fff;border-color:var(--green)}
+.step.current{background:linear-gradient(100deg, rgba(194,154,61,.10), transparent 70%);border-radius:14px;border-top-color:transparent;padding-left:14px;margin-left:-14px}
+.step.current .step-num{background:linear-gradient(150deg,var(--crimson),var(--crimson-deep));color:var(--gold-soft);border-color:var(--gold);box-shadow:0 0 0 4px rgba(194,154,61,.22), 0 6px 18px rgba(139,30,45,.28)}
+.step.future .step-num{border-style:dashed}
+.step-body h4{font-family:'Fraunces',serif;font-size:18px;font-weight:600;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.step-body .tag-you{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--crimson);background:var(--gold-soft);padding:3px 9px;border-radius:20px}
+.step-body p{font-size:13.5px;color:var(--ink-soft);margin-top:4px}
+.step-body .status{font-size:12.5px;font-weight:600;margin-top:7px}
+.step-body .status.met{color:var(--green)}
+.step-body .status.gap{color:var(--amber)}
+
+.focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:6px}
+.panel{border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--ivory-card)}
+.panel h3{font-family:'Fraunces',serif;font-size:19px;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.panel ul{list-style:none}
+.panel li{padding:9px 0 9px 26px;position:relative;font-size:14px;border-top:1px dashed var(--line)}
+.panel li:first-of-type{border-top:none}
+.panel li::before{position:absolute;left:0;top:9px;font-size:14px}
+.panel.win li::before{content:"\2197";color:var(--green);font-weight:700}
+.panel.next li::before{content:"\2192";color:var(--crimson);font-weight:700}
+.panel li b{color:var(--ink)}
+
+.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.goal-card{border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--ivory-card)}
+.goal-card h3{font-family:'Fraunces',serif;font-size:19px;margin-bottom:6px}
+.goal-card .goal-target{font-size:13px;color:var(--ink-soft);margin-bottom:16px}
+.goal-bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin-bottom:10px}
+.goal-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--crimson))}
+.goal-figures{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft)}
+.goal-figures b{color:var(--ink);font-family:'Fraunces',serif;font-size:17px;display:block}
+.goal-note{font-size:12.5px;color:var(--ink-soft);margin-top:14px;line-height:1.55;padding-top:14px;border-top:1px dashed var(--line)}
+
+footer{background:var(--crimson-deep);color:rgba(250,246,239,.78);padding:36px 0;font-size:13px;margin-top:10px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer b{color:var(--gold-soft);font-family:'Fraunces',serif;font-size:16px;font-weight:500}
+.disclaimer{font-size:11.5px;color:rgba(250,246,239,.5);max-width:560px;line-height:1.5;margin-top:8px}
+
+/* ===== CLOSING CTA ===== */
+.cta{
+  background:radial-gradient(120% 140% at 12% -10%, rgba(194,154,61,.30), transparent 55%),
+    linear-gradient(155deg, var(--crimson) 0%, var(--crimson-deep) 100%);
+  color:var(--ivory);padding:58px 0 56px;position:relative;overflow:hidden;margin-top:10px;
+}
+.cta::after{content:"";position:absolute;left:-90px;bottom:-90px;width:300px;height:300px;
+  background:radial-gradient(circle, rgba(227,200,121,.28), transparent 70%);filter:blur(8px)}
+.cta .wrap{position:relative;z-index:2}
+.cta .eyebrow{color:var(--gold-soft)}
+.cta h2{color:var(--ivory);max-width:760px}
+.cta h2 em{font-style:italic;color:var(--gold-soft);font-weight:500}
+.cta .lead{color:rgba(250,246,239,.85);max-width:680px;margin-bottom:30px}
+.gap-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.gap-card{background:rgba(255,253,248,.06);border:1px solid rgba(227,200,121,.28);border-radius:16px;padding:20px}
+.gap-card .stat{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--gold-soft);line-height:1.05}
+.gap-card .gap-label{font-size:12.5px;font-weight:600;color:var(--ivory);margin:6px 0 10px}
+.gap-card .gap-move{font-size:13px;color:rgba(250,246,239,.78);line-height:1.5}
+.gap-card .gap-move b{color:var(--gold-soft);font-weight:600}
+.offer{background:rgba(255,253,248,.07);border:1px solid rgba(227,200,121,.35);border-radius:18px;padding:26px 26px 24px;display:flex;gap:26px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.offer-text{flex:1;min-width:260px}
+.offer-text h3{font-family:'Fraunces',serif;font-size:21px;font-weight:600;color:var(--ivory);margin-bottom:6px}
+.offer-text p{font-size:13.5px;color:rgba(250,246,239,.8);line-height:1.55}
+.offer-text .incl{font-size:12.5px;color:var(--gold-soft);margin-top:10px;font-weight:600}
+.cta-actions{display:flex;flex-direction:column;gap:10px;min-width:220px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif;font-size:14.5px;font-weight:700;padding:13px 22px;border-radius:30px;text-decoration:none;text-align:center;transition:transform .15s ease,box-shadow .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--gold);color:var(--crimson-deep);box-shadow:0 6px 18px rgba(194,154,61,.32)}
+.btn-primary:hover{box-shadow:0 9px 24px rgba(194,154,61,.42)}
+.btn-ghost{background:transparent;color:var(--gold-soft);border:1.5px solid rgba(227,200,121,.55)}
+.btn-ghost:hover{background:rgba(227,200,121,.12)}
+.cta-secondary{margin-top:22px;font-size:13px;color:rgba(250,246,239,.7);line-height:1.55}
+.cta-secondary a{color:var(--gold-soft);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(227,200,121,.4)}
+.cta-reassure{margin-top:6px;font-size:12px;color:rgba(250,246,239,.55)}
+
+@media(max-width:760px){.chart-grid,.focus-grid,.gap-row,.goal-grid{grid-template-columns:1fr}section{padding:38px 0}.hero{padding:46px 0 38px}.cta-actions{min-width:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Household Financial Wellbeing Report · Sample</div>
+    <h1>One income story, told as <em>one household</em>.</h1>
+    <p class="sub">A combined picture of where Sam and Sarah stand together — income, spending, net worth, and the goals you're both working toward.</p>
+    <div class="meta">
+      <div>Prepared for<b>Sam & Sarah Lim</b></div>
+      <div>Period<b>Year 2025 (illustrative)</b></div>
+      <div>Currency<b>Ringgit Malaysia (RM)</b></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== AT A GLANCE ===== -->
+<section>
+  <div class="wrap">
+    <div class="section-tag">At a glance</div>
+    <h2>Your household snapshot</h2>
+    <p class="lead">A strong dual income and a net worth over RM1.3 million — but most of it is tied up in property and EPF, and what's left over each month is thin relative to what you both earn.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="label">Household net worth</div>
+        <div class="big">RM1,317,000</div>
+        <span class="pill ok">Assets RM2.41m · Liabilities RM1.10m</span>
+      </div>
+      <div class="card">
+        <div class="label">Total household income</div>
+        <div class="big">RM24,167<span style="font-size:14px;color:var(--ink-soft)">/mo</span></div>
+        <div class="note">RM290,000 for the year</div>
+      </div>
+      <div class="card">
+        <div class="label">Unallocated savings rate</div>
+        <div class="big">6.4%</div>
+        <span class="pill watch">Benchmark 20–30%</span>
+      </div>
+      <div class="card">
+        <div class="label">Debt-service ratio</div>
+        <div class="big">31.9%</div>
+        <span class="pill ok">Within guide 25–40%</span>
+      </div>
+      <div class="card">
+        <div class="label">Unit trust portfolio</div>
+        <div class="big">RM139,000</div>
+        <span class="pill good">+13.0% overall gain</span>
+      </div>
+      <div class="card">
+        <div class="label">Emergency fund</div>
+        <div class="big">1.1 mo</div>
+        <span class="pill watch">Benchmark 3–6 months</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NET WORTH ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-tag">Net worth</div>
+    <h2>What you own vs what you owe</h2>
+    <p class="lead">Property makes up 62% of everything you own. Together with EPF and your two vehicles, that's over 90% of your assets — accessible cash is less than 1% of the total.</p>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>Asset composition</h3>
+        <div class="cap">Total assets RM2,414,000</div>
+        <div class="chart-holder tall"><canvas id="assetPie"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>Liability composition</h3>
+        <div class="cap">Total liabilities RM1,097,000</div>
+        <div class="chart-holder tall"><canvas id="liabPie"></canvas></div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:20px">
+      <table>
+        <thead><tr><th>Category</th><th class="num">Amount (RM)</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="metric-name">Cash savings</td><td class="num">20,000</td><td>Joint account RM12,000 + Sam RM5,000 + Sarah RM3,000</td></tr>
+          <tr><td class="metric-name">Unit trusts</td><td class="num">139,000</td><td>Sam's equity RM63,000 + Sarah's balanced RM36,000 + children's education RM40,000</td></tr>
+          <tr><td class="metric-name">EPF</td><td class="num">460,000</td><td>Sam RM350,000 + Sarah RM110,000</td></tr>
+          <tr><td class="metric-name">Private Retirement Scheme</td><td class="num">15,000</td><td>Household PRS</td></tr>
+          <tr><td class="metric-name">Insurance cash values</td><td class="num">40,000</td><td>Across Sam, Sarah and children's policies</td></tr>
+          <tr><td class="metric-name">Primary residence</td><td class="num">1,000,000</td><td>Taman Desa, Kuala Lumpur</td></tr>
+          <tr><td class="metric-name">Investment property</td><td class="num">500,000</td><td>Tenanted, gross rent RM1,800/month</td></tr>
+          <tr><td class="metric-name">Mazda seven-seater</td><td class="num">180,000</td><td>Family car</td></tr>
+          <tr><td class="metric-name">Toyota Vios</td><td class="num">60,000</td><td>Second car</td></tr>
+          <tr style="font-weight:700;background:#FBF3F0"><td>TOTAL ASSETS</td><td class="num">2,414,000</td><td></td></tr>
+          <tr><td class="metric-name">Primary-home mortgage</td><td class="num">650,000</td><td>RM3,600/month instalment</td></tr>
+          <tr><td class="metric-name">Investment-property mortgage</td><td class="num">320,000</td><td>RM1,900/month instalment</td></tr>
+          <tr><td class="metric-name">Mazda vehicle loan</td><td class="num">90,000</td><td>RM1,250/month instalment</td></tr>
+          <tr><td class="metric-name">Toyota Vios vehicle loan</td><td class="num">25,000</td><td>RM650/month instalment</td></tr>
+          <tr><td class="metric-name">Credit-card balances</td><td class="num">12,000</td><td>Repayment provision RM300/month</td></tr>
+          <tr style="font-weight:700;background:#FBF3F0"><td>TOTAL LIABILITIES</td><td class="num">1,097,000</td><td></td></tr>
+          <tr style="font-weight:700;background:var(--green-soft)"><td>HOUSEHOLD NET WORTH</td><td class="num">1,317,000</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CASH FLOW ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-tag">Cash flow</div>
+    <h2>Where your money comes from — and where it goes</h2>
+    <p class="lead">Sam's salary covers nearly 70% of household income, with Sarah's salary and the investment property's net rental making up the rest. After everything is paid for, RM1,537 — about 6.4 sen of every ringgit — is left over each month.</p>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>Income sources</h3>
+        <div class="cap">Monthly average, RM24,167 total</div>
+        <div class="chart-holder tall"><canvas id="incomePie"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>Where it goes</h3>
+        <div class="cap">Monthly average, RM24,167 total</div>
+        <div class="chart-holder tall"><canvas id="outflowPie"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPENSE DEEP DIVE ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-tag">Spending</div>
+    <h2>Inside your monthly spending</h2>
+    <p class="lead">Essential living costs (BLE) run RM15,050/month — mortgages and transport are the largest shares. Discretionary spending (RM6,080/month) is led by dining out and your ongoing unit-trust contributions.</p>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>Basic Lifestyle Expenses</h3>
+        <div class="cap">RM15,050/month total</div>
+        <div class="chart-holder tall"><canvas id="blePie"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>Discretionary Expenses</h3>
+        <div class="cap">RM6,080/month total</div>
+        <div class="chart-holder tall"><canvas id="dexPie"></canvas></div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:20px">
+      <table>
+        <thead><tr><th>Category</th><th class="num">Monthly (RM)</th><th class="num">% of income</th></tr></thead>
+        <tbody>
+          <tr><td class="metric-name">Mortgage instalments (housing)</td><td class="num">5,500</td><td class="num">22.8%</td></tr>
+          <tr><td class="metric-name">Transportation (instalments, fuel, maintenance)</td><td class="num">3,250</td><td class="num">13.5%</td></tr>
+          <tr><td class="metric-name">Family insurance premiums</td><td class="num">1,800</td><td class="num">7.4%</td></tr>
+          <tr><td class="metric-name">Children's education (school & kindergarten fees)</td><td class="num">1,800</td><td class="num">7.4%</td></tr>
+          <tr><td class="metric-name">Household & parents support</td><td class="num">2,700</td><td class="num">11.2%</td></tr>
+          <tr style="font-weight:700;background:#FBF3F0"><td>Basic Lifestyle Expenses total</td><td class="num">15,050</td><td class="num">62.3%</td></tr>
+          <tr><td class="metric-name">Regular unit-trust contributions</td><td class="num">1,200</td><td class="num">5.0%</td></tr>
+          <tr><td class="metric-name">Overseas family holiday fund</td><td class="num">1,000</td><td class="num">4.1%</td></tr>
+          <tr><td class="metric-name">Dining & social</td><td class="num">1,800</td><td class="num">7.4%</td></tr>
+          <tr><td class="metric-name">Children's extracurricular activities</td><td class="num">750</td><td class="num">3.1%</td></tr>
+          <tr><td class="metric-name">Weekend maid</td><td class="num">500</td><td class="num">2.1%</td></tr>
+          <tr><td class="metric-name">Lifestyle & gadgets (subscriptions, phones, gifts)</td><td class="num">830</td><td class="num">3.4%</td></tr>
+          <tr style="font-weight:700;background:#FBF3F0"><td>Discretionary Expenses total</td><td class="num">6,080</td><td class="num">25.2%</td></tr>
+          <tr><td class="metric-name">Tax (income tax provision)</td><td class="num">1,500</td><td class="num">6.2%</td></tr>
+          <tr style="font-weight:700;background:var(--green-soft)"><td>NET SAVINGS</td><td class="num">1,537</td><td class="num">6.4%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GOALS ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-tag">Your goals</div>
+    <h2>What you're both saving toward</h2>
+    <p class="lead">Two clear goals sit ahead of you: funding both children through university, and retiring comfortably between 60–62 with RM10,000/month in today's terms. Both are currently underfunded relative to where they'll need to be.</p>
+    <div class="goal-grid">
+      <div class="goal-card">
+        <h3>Children's education</h3>
+        <div class="goal-target">Estimated future need: RM566,000 (both children, assuming 4% annual cost inflation)</div>
+        <div class="goal-bar"><div class="goal-bar-fill" style="width:7%"></div></div>
+        <div class="goal-figures">
+          <div>Currently earmarked<b>RM40,000</b></div>
+          <div style="text-align:right">Funding gap<b style="color:var(--crimson)">RM526,000</b></div>
+        </div>
+        <div class="goal-note">Child 1 (age 8, ~10 years to tertiary): RM266,000 · Child 2 (age 5, ~13 years to tertiary): RM300,000. The RM1,200/month unit-trust contribution is currently shared between this goal and retirement — it isn't dedicated to either.</div>
+      </div>
+      <div class="goal-card">
+        <h3>Retirement</h3>
+        <div class="goal-target">Target lifestyle: RM10,000/month (RM120,000/year) for ~25 years, retiring at 60–62</div>
+        <div class="goal-bar"><div class="goal-bar-fill" style="width:33%"></div></div>
+        <div class="goal-figures">
+          <div>Current long-term assets<b>RM654,000</b></div>
+          <div style="text-align:right">Years to retirement<b>~18–20 yrs</b></div>
+        </div>
+        <div class="goal-note">Current long-term assets: EPF RM460,000 + unit trusts RM139,000 + PRS RM15,000 + insurance cash values RM40,000. Unit trust returns of ~3–4% per year may not be enough to close the gap to a 25-year retirement at RM120,000/year — this is worth modelling properly.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INVESTMENT PORTFOLIO ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-tag">Investments</div>
+    <h2>Your unit trust portfolio</h2>
+    <p class="lead">A RM139,000 portfolio across three pots — Sam's equity funds, Sarah's balanced funds, and the children's education fund — up RM16,000 (+13.0%) on capital invested. Returns of 3–4% per year are healthy but worth benchmarking against your goals.</p>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>Portfolio allocation</h3>
+        <div class="cap">By current value, RM139,000 total</div>
+        <div class="chart-holder tall"><canvas id="portfolioPie"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>Capital invested vs current value</h3>
+        <div class="cap">Per fund, RM</div>
+        <div class="chart-holder tall"><canvas id="portfolioBar"></canvas></div>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:20px">
+      <table>
+        <thead><tr><th>Fund</th><th class="num">Capital (RM)</th><th class="num">Current value (RM)</th><th class="num">Gain</th></tr></thead>
+        <tbody>
+          <tr><td class="metric-name">Sam's equity unit trusts</td><td class="num">55,000</td><td class="num">63,000</td><td class="num">+14.5%</td></tr>
+          <tr><td class="metric-name">Sarah's balanced unit trusts</td><td class="num">32,000</td><td class="num">36,000</td><td class="num">+12.5%</td></tr>
+          <tr><td class="metric-name">Children's education unit trusts</td><td class="num">36,000</td><td class="num">40,000</td><td class="num">+11.1%</td></tr>
+          <tr style="font-weight:700;background:var(--green-soft)"><td>TOTAL</td><td class="num">123,000</td><td class="num">139,000</td><td class="num">+13.0%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink-soft);margin-top:12px">RM1,200/month is contributed across the three funds (Sam RM800, Sarah RM400). Estimated long-term return ~3–4% per year, before reviewing fees and allocation.</p>
+  </div>
+</section>
+
+<!-- ===== RATIOS SCORECARD ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-tag">Financial health</div>
+    <h2>Your ratios against the benchmarks</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Ratio</th><th class="num">Your figure</th><th>Benchmark</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="metric-name">Emergency fund</td><td class="num">~1.1 months</td><td>3 – 6 months</td><td><span class="pill-sm" style="background:var(--amber-soft);color:var(--amber)">Below target</span></td></tr>
+          <tr><td class="metric-name">Debt-service ratio</td><td class="num">31.9%</td><td>25% – 40%</td><td><span class="pill-sm" style="background:var(--green-soft);color:var(--green)">Within guide</span></td></tr>
+          <tr><td class="metric-name">Unallocated savings rate</td><td class="num">6.4%</td><td>20% – 30%</td><td><span class="pill-sm" style="background:var(--amber-soft);color:var(--amber)">Below target</span></td></tr>
+          <tr><td class="metric-name">Insurance premiums / income</td><td class="num">7.4%</td><td>Context-dependent</td><td><span class="pill-sm" style="background:var(--plum-soft);color:var(--plum)">Manageable</span></td></tr>
+          <tr><td class="metric-name">Sam's life-cover gap</td><td class="num">RM1,200,000</td><td>Needs analysis required</td><td><span class="pill-sm" style="background:var(--amber-soft);color:var(--amber)">Significant gap</span></td></tr>
+          <tr><td class="metric-name">Sarah's life-cover gap</td><td class="num">RM420,000</td><td>Needs analysis required</td><td><span class="pill-sm" style="background:var(--amber-soft);color:var(--amber)">Gap</span></td></tr>
+          <tr><td class="metric-name">Property concentration</td><td class="num">62.1%</td><td>Diversification preferred</td><td><span class="pill-sm" style="background:var(--amber-soft);color:var(--amber)">High</span></td></tr>
+          <tr><td class="metric-name">Cash as % of assets</td><td class="num">0.8%</td><td>Higher liquidity preferred</td><td><span class="pill-sm" style="background:var(--amber-soft);color:var(--amber)">Very low</span></td></tr>
+          <tr><td class="metric-name">Unit trust return</td><td class="num">~3% – 4%</td><td>Compare to goals & benchmarks</td><td><span class="pill-sm" style="background:var(--plum-soft);color:var(--plum)">Review needed</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5 STEPS ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-tag">The path</div>
+    <h2>Where you stand on the 5 steps to financial freedom</h2>
+    <p class="lead">Your combined income comfortably covers your commitments — survival is cleared. The honest gap is stability: a thin emergency fund, a low surplus relative to income, and life-insurance gaps on both sides. Passive income (rental only) is still early-stage.</p>
+
+    <div class="steps">
+      <div class="step done">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Survival</h4>
+          <p>Income covers the bills with a small surplus.</p>
+          <div class="status met">✓ Cleared — RM1,537 monthly surplus, debt-service 31.9% (within guide)</div>
+        </div>
+      </div>
+
+      <div class="step current">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Stability <span class="tag-you">You are here</span></h4>
+          <p>Consistent surplus, debt under control, properly insured, building a safety buffer.</p>
+          <div class="status met">✓ Debt-service 31.9% — within guide, though carrying four major commitments</div>
+          <div class="status gap">⚠ Emergency fund only ~1.1 months — RM40,000 short of the 3-month target</div>
+          <div class="status gap">⚠ Unallocated savings only 6.4% — well below the 20–30% benchmark</div>
+          <div class="status gap">⚠ Combined life-insurance gap of RM1,620,000 across Sam and Sarah</div>
+          <div class="status gap">⚠ Education funding gap of RM526,000 against the projected need</div>
+        </div>
+      </div>
+
+      <div class="step current" style="margin-top:6px">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Security <span class="tag-you">Early stage</span></h4>
+          <p>Passive income covers your essential living costs.</p>
+          <div class="status gap">◑ Net rental income RM1,500/month covers 8.8% of ~RM17,000/month essential expenses. Gap: ~RM15,500/month.</div>
+        </div>
+      </div>
+
+      <div class="step future">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Independence</h4>
+          <p>Passive income covers your full monthly spending (BLE + discretionary + tax, RM22,630/month).</p>
+          <div class="status">Currently at 6.6% coverage. Target: grow passive/investment income roughly 15x from today's RM1,500/month.</div>
+        </div>
+      </div>
+
+      <div class="step future">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Freedom & Abundance</h4>
+          <p>Passive income exceeds your desired lifestyle — funding travel, family, parents and legacy goals.</p>
+          <div class="status">The horizon: your RM10,000/month retirement vision and your children's futures live here.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-top:26px">
+      <h3>Passive income coverage</h3>
+      <div class="cap">Net rental income RM1,500/month against your spending</div>
+      <div class="chart-holder wide"><canvas id="passBar"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TAKEAWAYS ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-tag">In summary</div>
+    <h2>What's working — and where to focus next</h2>
+    <div class="focus-grid">
+      <div class="panel win">
+        <h3>Where you stand out</h3>
+        <ul>
+          <li><b>RM290,000 combined annual income</b>, including RM18,000/year net rental from the investment property</li>
+          <li><b>Positive household net worth of RM1,317,000</b>, anchored by two properties worth RM1.5m combined</li>
+          <li><b>RM460,000 in EPF</b> already built between Sam and Sarah</li>
+          <li><b>A regular investment habit</b> — RM1,200/month into unit trusts, up +13.0% on capital invested</li>
+          <li><b>Solid medical & life insurance foundation already in place</b> for the whole family, including the children</li>
+          <li><b>Clear, specific goals already defined</b> — education and retirement targets are written down, not vague</li>
+        </ul>
+      </div>
+      <div class="panel next">
+        <h3>Where to focus next</h3>
+        <ul>
+          <li><b>Build cash reserves</b> from RM20,000 toward a RM60,000 three-month buffer — RM40,000 to go</li>
+          <li><b>Lift the unallocated savings rate</b> from RM1,537/month (6.4%) toward RM3,500/month</li>
+          <li><b>Close the combined RM1,620,000 life-insurance gap</b> with a proper needs analysis for Sam and Sarah</li>
+          <li><b>Separate education investing from retirement investing</b> — right now RM1,200/month is doing both jobs</li>
+          <li><b>Review unit trust fees, fund overlap and allocation</b> — 3–4% returns may not be enough for either goal</li>
+          <li><b>Review whether both vehicle loans need to continue</b>, and the investment property's net rental yield</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLOSING CTA ===== -->
+<section class="cta">
+  <div class="wrap">
+    <div class="eyebrow">Your next step</div>
+    <h2>You can both see exactly where you stand. Now let's build <em>one plan</em> — together.</h2>
+    <p class="lead">This report did the hard part: it made your combined numbers honest and visible. The difference between a good year and a great one isn't more income — it's turning these three gaps into a plan you both agree on and follow through.</p>
+
+    <div class="gap-row">
+      <div class="gap-card">
+        <div class="stat">RM40,000</div>
+        <div class="gap-label">Short of a 3-month emergency fund</div>
+        <div class="gap-move">With a 6.4% surplus to redirect, we map a <b>realistic timeline to close this gap</b> — and lock in Stability.</div>
+      </div>
+      <div class="gap-card">
+        <div class="stat">RM1.62m</div>
+        <div class="gap-label">Combined life-insurance gap (Sam + Sarah)</div>
+        <div class="gap-move">We run a <b>proper needs analysis</b> for both of you — covering debt, education and living costs, not just an income multiple.</div>
+      </div>
+      <div class="gap-card">
+        <div class="stat">RM526,000</div>
+        <div class="gap-label">Education funding gap for both children</div>
+        <div class="gap-move">We <b>separate education from retirement investing</b> so each goal has its own dedicated, time-matched plan.</div>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="offer-text">
+        <h3>Master Your Money — 6-Step Household Coaching</h3>
+        <p>This report becomes your shared roadmap. Over six sessions, we work through your household's six steps to financial freedom — turning the gaps above into one plan you both understand and can act on together.</p>
+        <div class="incl">Includes the full Master Your Money course + 6 household coaching sessions</div>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="https://wa.me/60XXXXXXXXX?text=Hi%20Sherine,%20we've%20read%20our%20Household%20Financial%20Wellbeing%20Report%20and%20we'd%20like%20to%20talk%20about%20coaching.">Book a session on WhatsApp</a>
+        <a class="btn btn-ghost" href="mailto:hello@moneytalk.my?subject=Household%20coaching%20enquiry%20—%20Financial%20Wellbeing%20Report">Email me instead</a>
+      </div>
+    </div>
+
+    <p class="cta-secondary">Not ready for one-to-one yet? Start where you are: take the self-paced <a href="https://thenextlvl.teachable.com/p/master-your-money-6-steps-to-transform-your-finances-and-build-wealth">Master Your Money course</a>, or keep learning on the <a href="https://moneytalk38.wordpress.com/">Money Talk blog</a>.</p>
+    <p class="cta-reassure">Every plan starts from your real numbers — no pressure, no jargon, no judgement.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <b>Money Talk</b>
+      <div style="font-size:12px;color:rgba(250,246,239,.62);margin-top:2px;letter-spacing:.02em">Master Your Money · Build Your Wealth</div>
+      <div style="font-size:11px;color:rgba(250,246,239,.45);margin-top:6px;letter-spacing:.02em">Sherine Leong · Licensed RFP (CMSRL eCMSRL/B9999/2020) · Certified Financial Coach · HRDC Accredited Trainer</div>
+      <p class="disclaimer">This is a sample household report built from fictional data for demonstration purposes only. This report summarises a household's financial data for personal reference and does not constitute a personalised financial advisory recommendation. Confidential.</p>
+    </div>
+    <div style="text-align:right;font-size:12px;opacity:.7">Sam & Sarah Lim<br>2025 Sample Review</div>
+  </div>
+</footer>
+
+<script>
+const ink='#2A2420', soft='#6B6259', line='#E7DECF';
+const crimson='#8B1E2D', gold='#C29A3D', goldSoft='#E3C879', green='#3E6B4F', amber='#B5702A', clay='#C98A4B', slate='#9C8B6E', plum='#5A4A78';
+Chart.defaults.font.family="'Inter',sans-serif";
+Chart.defaults.color=soft;
+Chart.defaults.font.size=12;
+const rm=v=>'RM'+v.toLocaleString(undefined,{maximumFractionDigits:0});
+
+const pieOpts=(unit)=>({maintainAspectRatio:false,cutout:'56%',
+  plugins:{legend:{position:'bottom',labels:{boxWidth:11,padding:10,font:{size:11}}},
+    tooltip:{callbacks:{label:c=>{
+      const total=c.dataset.data.reduce((a,b)=>a+b,0);
+      const pct=(c.raw/total*100).toFixed(1);
+      return c.label+': '+rm(c.raw)+(unit||'')+' ('+pct+'%)';
+    }}}}
+});
+
+// Asset composition
+new Chart(document.getElementById('assetPie'),{type:'doughnut',
+  data:{labels:['Property','EPF and retirement assets','Vehicles','Unit trusts','Insurance cash values','Cash savings'],
+    datasets:[{data:[1500000,475000,240000,139000,40000,20000],backgroundColor:[crimson,gold,clay,slate,plum,green],borderColor:'#FFFDF8',borderWidth:2}]},
+  options:pieOpts()});
+
+// Liability composition
+new Chart(document.getElementById('liabPie'),{type:'doughnut',
+  data:{labels:['Primary-home mortgage','Investment-property mortgage','Mazda vehicle loan','Toyota Vios vehicle loan','Credit-card balances'],
+    datasets:[{data:[650000,320000,90000,25000,12000],backgroundColor:[crimson,gold,clay,slate,plum],borderColor:'#FFFDF8',borderWidth:2}]},
+  options:pieOpts()});
+
+// Income sources
+new Chart(document.getElementById('incomePie'),{type:'doughnut',
+  data:{labels:["Sam's salary","Sarah's salary","Net rental income"],
+    datasets:[{data:[16667,6000,1500],backgroundColor:[crimson,gold,green],borderColor:'#FFFDF8',borderWidth:2}]},
+  options:pieOpts()});
+
+// Outflow
+new Chart(document.getElementById('outflowPie'),{type:'doughnut',
+  data:{labels:['Net savings','Basic Lifestyle Expenses','Discretionary Expenses','Tax provision'],
+    datasets:[{data:[1537,15050,6080,1500],backgroundColor:[green,crimson,gold,slate],borderColor:'#FFFDF8',borderWidth:2}]},
+  options:pieOpts()});
+
+// BLE breakdown
+new Chart(document.getElementById('blePie'),{type:'doughnut',
+  data:{labels:['Mortgage instalments','Transportation','Family insurance premiums',"Children's education", 'Household & parents support'],
+    datasets:[{data:[5500,3250,1800,1800,2700],backgroundColor:[crimson,gold,clay,slate,plum],borderColor:'#FFFDF8',borderWidth:2}]},
+  options:pieOpts()});
+
+// DEX breakdown
+new Chart(document.getElementById('dexPie'),{type:'doughnut',
+  data:{labels:['Dining & social','Regular unit-trust contributions','Overseas family holiday fund',"Children's extracurricular", 'Lifestyle & gadgets', 'Weekend maid'],
+    datasets:[{data:[1800,1200,1000,750,830,500],backgroundColor:[crimson,green,gold,clay,plum,slate],borderColor:'#FFFDF8',borderWidth:2}]},
+  options:pieOpts()});
+
+// Portfolio pie
+new Chart(document.getElementById('portfolioPie'),{type:'doughnut',
+  data:{labels:["Sam's equity unit trusts","Sarah's balanced unit trusts","Children's education fund"],
+    datasets:[{data:[63000,36000,40000],backgroundColor:[crimson,gold,plum],borderColor:'#FFFDF8',borderWidth:2}]},
+  options:pieOpts()});
+
+// Portfolio bar - capital vs value
+new Chart(document.getElementById('portfolioBar'),{type:'bar',
+  data:{labels:["Sam's equity","Sarah's balanced","Children's education"],
+    datasets:[
+      {label:'Capital invested',data:[55000,32000,36000],backgroundColor:gold,borderRadius:6},
+      {label:'Current value',data:[63000,36000,40000],backgroundColor:crimson,borderRadius:6}
+    ]},
+  options:{maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:16}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+': '+rm(c.raw)}}},
+    scales:{y:{grid:{color:line},ticks:{callback:v=>'RM'+(v/1000)+'k'}},x:{grid:{display:false}}}}
+});
+
+// Passive income coverage
+new Chart(document.getElementById('passBar'),{type:'bar',
+  data:{labels:[['Essential household expenses','(Security target)'],['Full monthly spending','(Independence target)']],
+    datasets:[
+      {label:'Net rental income (RM1,500)',data:[1500,1500],backgroundColor:green,borderRadius:6},
+      {label:'Still to cover',data:[15500,21130],backgroundColor:'#EBE2D2',borderRadius:6}
+    ]},
+  options:{indexAxis:'y',maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:16}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+': '+rm(c.raw)}}},
+    scales:{x:{stacked:true,grid:{color:line},ticks:{callback:v=>'RM'+(v/1000)+'k'}},
+      y:{stacked:true,grid:{display:false}}}}
+});
+</script>
+</body>
+</html>
